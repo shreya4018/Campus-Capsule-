@@ -18,7 +18,11 @@ const Login = () => {
       await login(email, password);
       navigate('/');
     } catch (err) {
-      setError(err.response?.data?.detail || 'Invalid email or password');
+      if (!err.response) {
+        setError('Cannot connect to the backend server.');
+      } else {
+        setError(err.response?.data?.detail || 'Invalid email or password');
+      }
     } finally {
       setLoading(false);
     }
